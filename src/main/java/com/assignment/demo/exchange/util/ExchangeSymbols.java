@@ -3,9 +3,12 @@ package com.assignment.demo.exchange.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * all symbols map; the value from API server data
+ *     https://api.apilayer.com/exchangerates_data/symbols
+ */
 public class ExchangeSymbols {
 
-    // all symbols map
     private final static Map<String, String> symbolsMap;
 
     public static final String getSymbol(String key) {

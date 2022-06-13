@@ -30,6 +30,7 @@ public class SSNValidateService {
                 throw new SSNValidateException("CountryCode only support FI.");
             }
 
+            // simple validate birthday & century character & individual number & control character
             String regex = "^[0-9]{6}[-+A][0-9]{3}[0-9A-Y]$";
             if (!Pattern.compile(regex).matcher(ssn).matches()) {
                 throw new SSNValidateException(ssn + "regex not support");
@@ -47,6 +48,7 @@ public class SSNValidateService {
 
             validateBirthDate(day, month, year, centuryCharacter);
             validateIndividualNumber(individualNumber);
+            // replace all not digit character
             validateControlCharacter(ssn.replaceAll("[^\\d.]", ""), controlCharacter);
 
             return ResponseVo.success(new SSNValidateResponse(true));
@@ -68,19 +70,23 @@ public class SSNValidateService {
         SSNValidateException ssnException = new SSNValidateException("day number of " + day + month + realYear + " not exist");
         if (Integer.parseInt(month) == 2) {
             if (isLeapYear(realYear)) {
-                if (!day.matches("0[1-9]||1[0-9]||2[0-9]")) { // 01-29 day
+                // 01-29 day of month 2 when leap year
+                if (!day.matches("0[1-9]||1[0-9]||2[0-9]")) {
                     throw ssnException;
                 }
             } else {
-                if (!day.matches("0[1-9]||1[0-9]||2[0-8]")) { // 01-28 day
+                // 01-28 day of month 2 not leap year
+                if (!day.matches("0[1-9]||1[0-9]||2[0-8]")) {
                     throw ssnException;
                 }
             }
-        } else if (month.matches("0[469]||11")) {    // max day 30 on month 1,3,5,7,8,10,12
+        } else if (month.matches("0[469]||11")) {
+            // max day 30 on month 4,6,9,11
             if (!day.matches("0[1-9]||[12][0-9]||30")) {
                 throw ssnException;
             }
-        } else if (month.matches("0[13578]||1[02]")) {    // max day 31 on month 1,3,5,7,8,10,12
+        } else if (month.matches("0[13578]||1[02]")) {
+            // max day 31 on month 1,3,5,7,8,10,12
             if (!day.matches("0[1-9]||[12][0-9]||3[01]")) {
                 throw ssnException;
             }

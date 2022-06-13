@@ -22,12 +22,12 @@ public class ExchangeRateTask {
      */
     @Scheduled(initialDelay = 60000, fixedDelayString = "${exchange.rates.data.api.frequency}")
     public void SyncExchangeRate() {
-//        try {
-//            String[] symbols = new String[]{"EUR","SEK","USD"};
-//            exchangeRateService.SynLatestRate(symbols);
-//        } catch (Exception e) {
-//            log.error("Sync Date Task Exception", e);
-//        }
+        try {
+            String[] symbols = new String[]{"EUR","SEK","USD"};
+            exchangeRateService.SynLatestRate(symbols);
+        } catch (Exception e) {
+            log.error("Sync Date Task Exception", e);
+        }
     }
 
 

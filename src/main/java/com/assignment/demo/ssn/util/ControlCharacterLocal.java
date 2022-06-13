@@ -1,8 +1,5 @@
 package com.assignment.demo.ssn.util;
 
-import com.assignment.demo.common.Constants;
-import com.assignment.demo.exchange.util.ExchangeRateLocal;
-
 import java.util.HashMap;
 import java.util.Map;
 
