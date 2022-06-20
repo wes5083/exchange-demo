@@ -62,8 +62,7 @@ public class SSNValidateService {
 
     private void validateBirthDate(String day, String month, String year, String centuryCharacter) {
         String realYear = ("+".equals(centuryCharacter) ? "18" : ("-".equals(centuryCharacter) ? "19" : "20")).concat(year);
-        log.info(realYear);
-        if (realYear.matches("[18||19||20][0-9]{2}")) {
+        if (!realYear.matches("[18||19||20][0-9]{2}")) {
             throw new SSNValidateException("year number " + realYear + " only support 18, 19, 20");
         }
 
